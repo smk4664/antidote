@@ -7,6 +7,37 @@ We're truly interested in building a community around both the Antidote platform
 To that end, we've created several resources for getting involved with the project, each aimed at a different use case
 for community engagement.
 
+.. _weekly-standups:
+
+Weekly Standups
+^^^^^^^^^^^^^^^
+
+We hold weekly standups - open to all - every Tuesday at 8AM Pacific. Attending these are the best way
+to start getting involved with the project, provide feedback, or ask a question.
+
+All standups are recorded and `published to YouTube <https://www.youtube.com/c/NRELabs>`_
+- usually within a day or two. Standup agendas are usually posted in advance to the
+`Weekly Standup <https://community.networkreliability.engineering/c/weekly-standup>`_ forum topic. Meeting
+minutes will be posted to the same topic after the meeting, with a link to the YouTube video.
+
+The weekly standups are conducted over Zoom, and conference information can be found below:
+
+`Join our Cloud HD Video Meeting now <https://zoom.us/j/552710574>`_
+
+One tap mobile
+
+- +16699006833,552710574# US (San Jose)
+- +19294362866,552710574# US (New York)
+
+Dial by your location
+
+- +1 669 900 6833 US (San Jose)
+- +1 929 436 2866 US (New York)
+- Meeting ID: 552 710 574
+- `Find your local number <https://zoom.us/u/ab9tjSeMcz>`_
+
+`Weekly iCalendar (.ics) can be downloaded here. <https://zoom.us/meeting/552710574/ics?icsToken=e364d9d15ff939365786bc173d1f99883eb3c9087f6c75b7d14c73732abb5f56>`_
+
 .. _community-forums:
 
 Community Forums
@@ -62,7 +93,7 @@ deep into a topic, other weeks we might just casually chat about what's next on 
 Check out our `Twitch channel <https://twitch.tv/nrelabs>`_ to watch live, and interact with us in the chat. Ask questions or
 provide feedback to us live, and we might talk about it on stream!
 
-If you can't join live, check out our `YouTube channel <https://www.youtube.com/channel/UCbfZq3sDGx6gmv7KRrhRh4g>`_, where we post the
+If you can't join live, check out our `YouTube channel <https://www.youtube.com/c/NRELabs>`_, where we post the
 recordings for all our streams, as well as all other video content.
 
 Blog
@@ -72,7 +103,3 @@ and any big changes to NRE Labs. You may also be interested to know that this bl
 `maintained in Github <https://github.com/nre-learning/nre-blog>`_, so if you want to write a guest post by opening a pull request
 to that repo, we'd love to have you!
 
-Trello Board
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-For slightly less technical project planning around the Antidote community, see our `Trello Board <https://trello.com/b/QdT69weT/nre-labs>`_.
-This is where we plan anything that doesn't fit neatly into a platform release plan, which we manage in Github projects.

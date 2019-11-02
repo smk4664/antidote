@@ -1,105 +1,15 @@
 .. _selfmedicate:
 
-Hacking on the Curriculum
-=========================
+Self-Medicate
+=============
 
-If you want to contribute some lessons, you'll probably want to find a way to run them locally
-yourself before opening a pull request. Or maybe you're looking to show some automation demos
-in an environment that doesn't have internet access (hello federal folks). If any of this describes
-you, you've come to the right place.
+We've developed a tool called `"Self-Medicate" <https://github.com/nre-learning/antidote-selfmedicate>`_ that
+is designed to run the Antidote platform on your laptop. The primary use case for doing this is to work on
+the :ref:`curriculum <contrib-curriculum>` locally before pushing to a branch.
 
-The antidote project is meant to run on top of Kubernetes. Not only does this provide a suitable
-deployment environment for the Antidote platform itself, it also allows us to easily spin up additional
-compute resources for running the lessons themselves. To replicate the production environment at
-a smaller scale, such as on a laptop, we use "`minikube <https://github.com/kubernetes/minikube>`_". This is a single-node Kubernetes cluster
-that is fairly well-automated. This means you can do things like run demos of Antidote lessons
-offline, or use this as your development environment for building new lessons.
-
-The `antidote-selfmedicate <https://github.com/nre-learning/antidote-selfmedicate>`_ tool is a set of scripts
-that use minikube to deploy a full functioning Antidote deployment on your local machine.
-
-.. warning::
-    Currently, selfmedicate only supports mac and linux. If you want to run this on Windows, we
-    recommend executing these scripts from within a linux virtual machine, or within 
-    `Windows WSL <https://docs.microsoft.com/en-us/windows/wsl/faq>`_.
-
-.. NOTE::
-
-    This section discusses technical steps for running Antidote locally for the purposes of editing or adding to
-    a curriculum. See :ref:`here <contrib-curriculum>` for instructions on how to contribute your changes or additions
-    to the flagship NRE Labs curriculum.
-
-Install and Configure Prerequisites
------------------------------------
-
-The development environment runs within a virtual machine, so you'll need a hypervisor. We recommend
-`Virtualbox <https://www.virtualbox.org/wiki/Downloads>`_ as it is widely supported across operating systems
-as well as the automation we'll use to get everything spun up on top of it.
-
-Next, you'll need minikube. This is by far the easiest way to get a working instance of Kubernetes
-running on your laptop. Follow the `installation instructions <https://kubernetes.io/docs/tasks/tools/install-minikube/>`_
-to install, but do not start minikube.  Make sure you install kubectl as well.  Instructions are on the same page.
-
-.. note:: 
-
-    The ``selfmedicate`` script starts a minikube VM with 8GB of RAM and 4 vCPUs by default. While this isn't a strict
-    requirement, it's a highly advised minimum. Depending on the lessons you start, it can require quite a bit of system
-    resources, especially if you start multiple lessons in parallel.
-
-
-Preparing the Environment
--------------------------
-
-You can create a configuration file for selfmedicate, but it is not required.  It should be called "config"
-and located in directory "$HOME/.antidote/"  Not all variables need to be specified.  The following variables
-are supported::
-
-    CPUS               - The number of CPUs minikube should run on.  (default: 2)
-    MEMORY             - The amount of memory in megabytes minikube should run on. (default: 8192)
-    VMDRIVER           - The hypervisor minikube should use (default: virtualbox)
-    LESSON_DIRECTORY   - The location of the lesson directory.  (default: "../nrelabs-curriculum")
-    MINIKUBE           - The path to the 'minikube' command. (default: "minikube", if installed on PATH)
-    KUBECTL            - The path to the 'kubectl' command. (default: "kubectl", if installed on PATH)
-    PRELOADED_IMAGES   - The list of images to be pre-loaded in advance. (default: "vqfx:snap1 vqfx:snap2 vqfx:snap3 utility")
-
-Example::
-
-    CPUS=4
-    MEMORY=16384
-    VMDRIVER=kvm2
-    LESSON_DIRECTORY="$HOME/projects/nrelabs-curriculum"
-
-.. NOTE::
-
-   Minikube's `kvm2 VM driver
-   <https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm2-driver>`_
-   (set in VMDRIVER in the example above) is also supported when on
-   Linux. It allows Minikube to run Kubernetes inside a qemu+kvm VM,
-   which should offer better performance on Linux machines provided
-   they support nested virtualization.
-    
-Open a terminal window.  Create, then enter the directory for the selfmedicate environment and curriculum lessons::
-
-    mkdir ~/antidote-local && cd ~/antidote-local
- 
-Next, if you're working with the development environment, you also may be looking to contribute to the NRE Labs
-curriculum. If so, follow the :ref:`Antidote Git instructions <antidote-git>` to fork and clone the
-`nrelabs-curriculum <http://github.com/nre-learning/nrelabs-curriculum>`_ repository to this directory. Not only
-is this required for this development environment to work (it needs a curriculum to run), it also sets you up
-to contribute to the curriculum later.
-
-Next, all of the scripts and kubernetes manifests for running Antidote within minikube are located in the
-`antidote-selfmedicate <https://github.com/nre-learning/antidote-selfmedicate>`_ repository. Simply clone
-and enter this repository::
-
-    cd ~/antidote-local && git clone https://github.com/nre-learning/antidote-selfmedicate && cd antidote-selfmedicate
-
-.. WARNING::
-
-    **Please remember** that changes are being made to this repository all the time. If you encounter issues,
-    the very first thing you should try before you open an issue is to make sure you have the latest copy of
-    this repository by doing a ``git pull`` on the master branch.
-
+The preferred method for running self-medicate is through :ref:`Vagrant <selfmedicate-vagrant>`. Please first follow those
+instructions for starting this environment, and when you have a working SSH connection to a properly provisioned
+virtual machine with ``vagrant ssh``, resume here.
 
 Starting Self-Medicate
 ----------------------
@@ -205,25 +115,50 @@ Troubleshooting Self-Medicate
 
 The vast majority of all setup activities are performed by the ``selfmedicate`` script. The idea is that this
 script shoulders the burden of downloading all the appropriate software and building is so that you can
-quickly get to focusing on lesson content.
-
-However, issues can still happen. This section is meant to direct you towards the right next steps should
-something go wrong and you need to intervene directly.
+quickly get to focusing on lesson content. However, issues can still happen. This section is meant to direct
+you towards the right next steps should something go wrong and you need to intervene directly.
 
 .. warning::
 
     The ``selfmedicate`` script is designed to make it easy to configure a local minikube environment
     with everything related to Antidote installed on top. However, you'll always be well-served by
     becoming familiar with ``minikube`` or even Kubernetes itself so that you are more able to troubleshoot
-    the environment when things go wrong. Keep a bookmark to the
-    `minikube docs <https://kubernetes.io/docs/setup/minikube/>`_ handy, just in case.
+    the environment when things go wrong.
 
-.. note::
+Before asking for help, please first answer these questions:
 
-    If your issue isn't covered below, please `open an issue on the
-    selfmedicate repository <https://github.com/nre-learning/antidote-selfmedicate/issues/new>`_.
+- Have you read this page and the :ref:`Self-Medicate Vagrant <selfmedicate-vagrant>` doc in its entirety?
+- Have you run a ``git pull`` on the latest ``master`` branch of the Self-Medicate and Curriculum repos?
+- Have you looked at the :ref:`Common Self-Medicate Issues <common-selfmedicate-issues>` below?
 
-Cannot connect to the Web Front-End
+If you answered "yes" to all of these questions, please `open an issue on the 
+selfmedicate repository <https://github.com/nre-learning/antidote-selfmedicate/issues/new>`_ and ensure you
+follow the instructions provided there.
+
+The self-medicate tool comes with a ``debug`` subcommand which runs a series of commands for extracting information
+that will be needed for any troubleshooting activity. To run this subcommand and place all output in a file called
+``selfmedicatedebug.txt``, run the below:
+
+.. CODE::
+
+    ./selfmedicate.sh debug > selfmedicatedebug.txt
+
+When opening an issue on the Self-Medicate repository linked above, this information will be required to
+move forward with troubleshooting any issues, so please `create a new Github Gist <https://gist.github.com/>`_
+and paste the link into the relevant spot in your issue. **Please do not paste the debug contents into a
+Github Issue directly**.
+
+.. _common-selfmedicate-issues:
+
+Common Self-Medicate Issues
+---------------------------
+
+.. NOTE::
+
+    All of the steps below assume a working :ref:`Vagrant <selfmedicate-vagrant>` environment, and a working
+    persistent connection to this virtual machine via ``vagrant ssh``.
+
+Cannot Connect to the Web Front-End
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It's likely that the pods for running the Antidote platform aren't running yet. Try getting the current pods:
@@ -275,19 +210,8 @@ connections, this can take some time.
 There are a few things you can try. For instance, ``kubectl describe pods <pod name>``, as used in the previous section,
 can tell you if a given pod is still downloading an image.
 
-We can also use the ``minikube ssh`` command to send commands into the minikube VM and see the results. For instance, to
-check the list of docker images that have been successfully pulled:
+We can also use docker commands to check the list of docker images that have been successfully pulled:
 
 .. code::
 
-    minikube ssh docker image list
-
-This is the same as running ``docker image list``, but it's done from inside the minikube VM for you. Similarly, if you wanted
-to manually pull an image ahead of time, you could run ``minikube ssh docker image pull <image>``.
-
-.. note::
-
-  The ``selfmedicate`` script downloads the most common images in advance to try to reduce the likelihood of this issue, and to
-  generally improve the responsiveness of the local environment. However, it can't do this for all possible images you might want
-  to use. If you know you'll use a particular image commonly, consider adding it to the ``selfmedicate`` script, or manually
-  pulling it within the minikube environment ahead of time.
+    docker image list
