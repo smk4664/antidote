@@ -28,6 +28,7 @@ missed any of the below, please open an issue on the curriculum repo.
 
 - Is the CHANGELOG updated properly?
 - Does ``syrctl validate`` pass?
+- Does the spelling check pass? :ref:`Curriculum Spelling`
 
 Content Quality
 ---------------

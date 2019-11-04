@@ -15,6 +15,7 @@ Before starting your work, please read this section in its entirety, so your wor
    terminology.rst
    curriculum.rst
    reviewer.rst
+   spelling.rst
    platform.rst
    docs.rst
    nondev.rst
